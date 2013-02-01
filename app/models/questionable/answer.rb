@@ -10,7 +10,7 @@ module Questionable
    # has_one :question_group, :through => :assignment
 
 #=begin
-    def self.build_answers_for_subject(user, subject)
+    def self.build_answers_for_subject(subject, user=nil)
       if subject.kind_of?(Symbol) or subject.kind_of?(String)
         assignments = Questionable::Assignment.where(:subject_type => subject)
       else
@@ -18,7 +18,11 @@ module Questionable
       end
 
       assignments = assignments.order(:position)
-      assignments.map { |as| as.answers_for_user(user) }
+      if user.nil?
+        assignments.map { |as| as.answers.where(:assignment_id => as.id) }
+      else  
+        assignments.map { |as| as.answers_for_user(user) }
+      end
     end
 #=end
 
