@@ -19,7 +19,7 @@ module Questionable
 
       assignments = assignments.order(:position)
       if user.nil?
-        assignments.map { |as| as.answers.where(:assignment_id => as.id) }
+        assignments.map { |as| as.answers.all }
       else  
         assignments.map { |as| as.answers_for_user(user) }
       end
