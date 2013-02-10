@@ -49,6 +49,10 @@ Add Options, unless input_type is 'string'
   q.options.create(title: 'Green', position: 2)
   q.options.create(title: 'Blue',  position: 3)
 
+Create one or more Question groups.
+
+  q = Questionable::QuestionGroup.create(title: 'What is your favorite question group?', note: 'This is important')
+
 Questions must be assigned a 'subject' before they are used. 
 They subject can be either an object, via a polymorphic association, 
 or something general like "preferences", which we can pass here as a symbol or string.

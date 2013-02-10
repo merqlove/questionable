@@ -1,9 +1,6 @@
 module Questionable
   class QuestionGroup < ActiveRecord::Base
 
-    #has_many :group_assignments
-    #has_many :subjects, :through => :group_assignments
-
     #belongs_to :group, :polymorphic => true
     #belongs_to :assignment
     has_many :assignments
@@ -13,7 +10,7 @@ module Questionable
 
     has_ancestry :orphan_strategy => :destroy, :cache_depth => true
 
-    attr_accessible :title, :note, :category, :group, :group_id, :group_type, :position
+    attr_accessible :title, :note, :category, :position#, :group, :group_id, :group_type
 
     validates_presence_of :title
 =begin
