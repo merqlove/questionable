@@ -62,6 +62,14 @@ or
 
   Questionable::Assignment.create(question_id: q.id, subject_type: 'preferences')
 
+or
+
+  Questionable::Assignment.create(question_id: q.id, question_group_id: qg.id, subject: @product)
+
+or
+
+  Questionable::Assignment.create(question_id: q.id, question_group_id: qg.id, subject_type: 'preferences')
+
 ===  In your controller
 
 Here's we fetch question-assignments for a particular symbol:
@@ -82,6 +90,44 @@ With HAML
 Or ERB
 
   <%= render partial: 'questionable/assignments/form', locals: { assignments: @assignments } %>
+
+
+===  Override Questionable models
+
+survey/assignment.rb
+
+  class Survey::Assignment < Questionable::Assignment
+    def dummy
+    end
+  end
+
+survey/question_group.rb
+
+  class Survey::QuestionGroup < Questionable::QuestionGroup
+    def dummy
+    end
+  end
+
+survey/question.rb
+
+  class Survey::Question < Questionable::Question
+    def dummy
+    end
+  end
+
+post.rb
+
+  class Post < ActiveRecord::Base
+    has_many :survey_assignments, :as => :subject, :class_name => 'Survey::Assignment'
+    has_many :question_groups, :through => :survey_assignments, :class_name => 'Survey::QuestionGroup', :uniq => true, :include => :questions
+  end
+
+controllers/some_controller.rb
+
+  @post = Post.find(param[:id])
+  @question_groups = @post.questions_groups
+  @questions = @question_groups.map{ |question_group| question_group.questions }
+  @answers = @questions.map{ |question| questions.answers }
 
 === Running Tests
 
