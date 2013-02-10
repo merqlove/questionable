@@ -1,11 +1,10 @@
 module Questionable
   class Question < ActiveRecord::Base
-    belongs_to :assignment_group
     has_many :options, :order => 'questionable_options.position ASC'
     has_many :assignments
     has_many :subjects, :through => :assignments
     has_many :answers, :through => :assignments    
-    has_one :question_group, :through => :assignment_groups
+    has_many :question_groups, :through => :assignments
 
     attr_accessible :title, :input_type, :note, :category
 
