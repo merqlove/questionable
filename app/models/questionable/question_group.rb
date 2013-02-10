@@ -8,7 +8,7 @@ module Questionable
     #belongs_to :assignment
     has_many :assignments
     has_many :subjects, :through => :assignments
-    has_many :questions, :through => :assignments, :include => :answers
+    has_many :questions, :through => :assignments
     has_many :answers, :through => :assignments
 
     has_ancestry :orphan_strategy => :destroy, :cache_depth => true
