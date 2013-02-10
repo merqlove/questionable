@@ -51,7 +51,7 @@ Add Options, unless input_type is 'string'
 
 Create one or more Question groups.
 
-  q = Questionable::QuestionGroup.create(title: 'What is your favorite question group?', note: 'This is important')
+  qg = Questionable::QuestionGroup.create(title: 'What is your favorite question group?', note: 'This is important')
 
 Questions must be assigned a 'subject' before they are used. 
 They subject can be either an object, via a polymorphic association, 
