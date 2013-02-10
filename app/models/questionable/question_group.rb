@@ -6,6 +6,8 @@ module Questionable
     has_many :assignments
     has_many :subjects, :through => :assignments
     has_many :questions, :through => :assignments
+    has_many :only_questions, :source => :question, :through => :assignments, :conditions => ["questionable_questions.category IS NULL OR questionable_questions.category NOT LIKE ?", 'comment']
+    has_many :only_comments, :source => :question, :through => :assignments, :conditions => { :category => 'comment' }
     has_many :answers, :through => :assignments
 
     has_ancestry :orphan_strategy => :destroy, :cache_depth => true

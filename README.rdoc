@@ -133,7 +133,9 @@ controllers/some_controller.rb
   @post = Post.find(param[:id])
   @question_groups = @post.questions_groups
   @questions = @question_groups.map{ |question_group| question_group.questions }
-  @answers = @questions.map{ |question| questions.answers }
+  @only_questions = @question_groups.map{ |question_group| question_group.only_questions } # only questions
+  @only_comments = @question_groups.map{ |question_group| question_group.only_comments } # only group comments
+  @answers = @only_questions.map{ |question| questions.answers }
 
 === Running Tests
 
