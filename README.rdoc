@@ -41,8 +41,9 @@ Create one or more Questions. Supported input_types include select, multiselect,
 radio, checkboxes, date, text, and string.
 
   # input_type may be select, multiselect, radio, checkboxes, date, text, or string.
-  q = Questionable::Question.create(title: 'What is your favorite color?', input_type: 'select', note: 'This is important', category => 'comment' )
-  q = Questionable::Question.create(title: 'What is your favorite color?', input_type: 'string', note: 'This is important', category => 'comment' )
+  q = Questionable::Question.create(title: 'What is your favorite color?', input_type: 'select', note: 'This is important' )
+  # question as textarea
+  q = Questionable::Question.create(title: 'What is your favorite color?', input_type: 'text', note: 'This is important', category => 'comment' )
 
 Add Options, unless input_type is 'string'
 
