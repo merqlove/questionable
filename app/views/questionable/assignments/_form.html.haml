@@ -39,6 +39,8 @@
                 options_from_collection_for_select(q.options, 'id', 'title', selected_option_ids.first), prompt: 'Choose an option'
             - elsif q.input_type == 'string'
               = text_field_tag field, selected_answers.first.try(:message)
+            - elsif q.input_type == 'text'
+              = text_area_tag field, selected_answers.first.try(:message)
             - elsif q.input_type == 'date'
               =# select_date nil, field, order: [:month, :day, :year]
               =# date_select (Date.today - 20.years), field, order: [:month, :day, :year]
