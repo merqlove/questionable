@@ -7,22 +7,12 @@ module Questionable
     belongs_to :option
     has_one :question, :through => :assignment
 
-    def self.build_answers_for_subject(subject, user=nil)
-      if subject.kind_of?(Symbol) or subject.kind_of?(String)
-        assignments = Questionable::Assignment.where(:subject_type => subject)
-      else
-        assignments = Questionable::Assignment.where(:subject_type => subject.class.to_s, :subject_id => subject.id)
-      end
+    def date_answer
+      return nil if message.nil?
 
-      assignments = assignments.order(:position)
-      if user.nil?
-        assignments.map { |as| as.answers.all }
-      else  
-        assignments.map { |as| as.answers_for_user(user) }
-      end
+      self.message.to_date
+    rescue ArgumentError
+      nil
     end
-
-    #  Questionable::Question.joins('INNER JOIN questionable_assignments ON questionable_assignments.question_id = questionable_questions.id').where(:questionable_assignments => { :subject_type => type }).order('questionable_assignments.position')
-
   end
 end
