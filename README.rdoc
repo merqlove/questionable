@@ -45,7 +45,7 @@ radio, checkboxes, date, text, and string.
   # question as textarea
   q = Questionable::Question.create(title: 'What is your favorite color?', input_type: 'text', note: 'This is important', category => 'comment' )
 
-Add Options, unless input_type is 'string'
+Add Options, unless input_type is 'string' or 'text'
 
   q.options.create(title: 'Red',   position: 1)
   q.options.create(title: 'Green', position: 2)
