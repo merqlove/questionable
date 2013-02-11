@@ -103,6 +103,7 @@ Or ERB
 survey/assignment.rb
 
   class Survey::Assignment < Questionable::Assignment
+    self.abstract_class = true
     self.table_name_prefix = 'questionable_'
 
     def dummy
@@ -112,6 +113,7 @@ survey/assignment.rb
 survey/question_group.rb
 
   class Survey::QuestionGroup < Questionable::QuestionGroup
+    self.abstract_class = true
     self.table_name_prefix = 'questionable_'
 
     def dummy
@@ -121,6 +123,7 @@ survey/question_group.rb
 survey/question.rb
 
   class Survey::Question < Questionable::Question
+    self.abstract_class = true
     self.table_name_prefix = 'questionable_'
 
     def dummy

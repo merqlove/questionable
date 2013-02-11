@@ -17,11 +17,12 @@ module Questionable
       answers.any? ? answers : [self.answers.build(user_id: user.id)]
     end
 =end
+
     def self.with_subject(subject)
       if subject.kind_of?(Symbol) or subject.kind_of?(String)
-        Questionable::QuestionGroup.where(:group_type => subject ).order(:position)
+        Questionable::QuestionGroup.joins('INNER JOIN questionable_assignments ON questionable_assignments.question_group_id = questionable_question_groups.id').where(:questionable_assignments => { :subject_type => subject }).group('questionable_question_groups.id').order('questionable_assignments.position')
       else
-        Questionable::QuestionGroup.where(:group_type => subject.class.to_s, :group_id => subject.id).order(:position)
+        Questionable::QuestionGroup.joins('INNER JOIN questionable_assignments ON questionable_assignments.question_group_id = questionable_question_groups.id').where(:questionable_assignments => { :subject_type => subject.class.to_s, :subject_id => subject.id }).group('questionable_question_groups.id').order('questionable_assignments.position')
       end
     end
 
