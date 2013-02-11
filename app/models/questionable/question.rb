@@ -14,6 +14,15 @@ module Questionable
       ['checkboxes', 'multiselect'].include?(self.input_type)
     end
 
+    def self.create_comment(attributes = nil, options = {}, &block)
+      merge = {:input_type => 'text', :category => 'comment'}
+      if attributes.is_a?(Array)
+        attributes.collect { |attr| self.create(attr.merge(merge), options, &block) }
+      else
+        self.create(attributes.merge(merge), options, &block)
+      end
+    end
+
     def answers_for_user(user)
       answers = self.answers.where(user_id: user.id)
       answers.any? ? answers : [self.answers.build(user_id: user.id)]
