@@ -1,14 +1,22 @@
 module Questionable
   class Question < ActiveRecord::Base
-    has_many :options, :order => 'questionable_options.position ASC'
-    has_many :assignments
+    has_many :options, :order => 'questionable_options.position ASC', :dependent => :destroy
+    has_many :assignments, :dependent => :destroy
     has_many :subjects, :through => :assignments
-    has_many :answers, :through => :assignments    
-    has_many :question_groups, :through => :assignments
+    has_many :answers, :through => :assignments
 
-    attr_accessible :title, :input_type, :note, :category
 
-    validates_presence_of :title
+    accepts_nested_attributes_for :options
+    attr_accessible :title, :input_type, :note, :category, :options, :options_attributes
+
+    #validates_presence_of :title, :unless => :skip_validation
+
+    def skip_validation
+      if self.category == 'comment'
+        return true
+      end
+      false
+    end
 
     def accepts_multiple_answers?
       ['checkboxes', 'multiselect'].include?(self.input_type)

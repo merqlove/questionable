@@ -1,6 +1,6 @@
 module Questionable
   class Option < ActiveRecord::Base
-    attr_accessible :note, :position, :question_id, :title, :position
+    attr_accessible :note, :position, :question_id, :title, :value
 
     belongs_to :question
 

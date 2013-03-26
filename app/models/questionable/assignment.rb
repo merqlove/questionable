@@ -1,12 +1,11 @@
 module Questionable
   class Assignment < ActiveRecord::Base
-    attr_accessible :question_id, :question_group_id, :subject, :subject_id, :subject_type, :position
+    attr_accessible :question_id, :subject, :subject_id, :subject_type, :position
 
     belongs_to :question
-    belongs_to :question_group
     belongs_to :subject, :polymorphic => true
 
-    has_many :answers
+    has_many :answers, :dependent => :destroy
     has_many :answered_options, :through => :answers, :source => :option
 
     def self.with_subject(subject)
