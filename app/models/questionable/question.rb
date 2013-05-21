@@ -1,13 +1,15 @@
 module Questionable
   class Question < ActiveRecord::Base
+    #before_destroy :answers_delete
+
     has_many :options, :order => 'questionable_options.position ASC', :dependent => :destroy
     has_many :assignments, :dependent => :destroy
     has_many :subjects, :through => :assignments
     has_many :answers, :through => :assignments
 
-
-    accepts_nested_attributes_for :options
-    attr_accessible :title, :input_type, :note, :category, :options, :options_attributes
+    accepts_nested_attributes_for :options, allow_destroy: true
+    accepts_nested_attributes_for :subjects
+    attr_accessible :title, :input_type, :note, :category, :coeff, :position, :options, :options_attributes, :subjects_attributes
 
     #validates_presence_of :title, :unless => :skip_validation
 
@@ -42,6 +44,12 @@ module Questionable
       else
         Questionable::Question.joins('INNER JOIN questionable_assignments ON questionable_assignments.question_id = questionable_questions.id').where(:questionable_assignments => { :subject_type => subject.class.to_s, :subject_id => subject.id }).order('questionable_assignments.position')
       end
+    end
+
+    def answers_delete
+        self.answers.each do |answer|
+          answer.delete
+        end
     end
   end
 end

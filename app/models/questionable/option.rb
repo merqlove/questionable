@@ -4,6 +4,6 @@ module Questionable
 
     belongs_to :question
 
-    validates_presence_of :question_id#, :title
+    #validates_presence_of :question_id#, :title
   end
 end
