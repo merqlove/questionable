@@ -3,15 +3,15 @@ module Questionable
     belongs_to :group, :polymorphic => true
 
     has_many :assignments, :as => :subject, :dependent => :destroy, :order => 'position'
-    has_many :questions, :through => :assignments, :order => 'position', :select => 'questionable_questions.*, questionable_assignments.position as position', :before_remove => :question_before_remove
+    #has_many :questions, :through => :assignments, :order => 'position', :select => 'questionable_questions.*, questionable_assignments.position as position', :before_remove => :question_before_remove
 
-    has_many :only_questions, :source => :question, :through => :assignments, :order => 'position', :select => 'questionable_questions.*, questionable_assignments.position as position, questionable_assignments.position as position', :conditions => ["questionable_questions.category IS NULL OR questionable_questions.category NOT LIKE ?", 'comment']
-    has_many :only_comments, :source => :question, :through => :assignments, :order => 'position', :select => 'questionable_questions.*, questionable_assignments.position as position', :conditions => { :category => 'comment' }
-    has_many :answers, :through => :assignments, :order => 'position'
+    #has_many :only_questions, :source => :question, :through => :assignments, :order => 'position', :select => 'questionable_questions.*, questionable_assignments.position as position, questionable_assignments.position as position', :conditions => ["questionable_questions.category IS NULL OR questionable_questions.category NOT LIKE ?", 'comment']
+    #has_many :only_comments, :source => :question, :through => :assignments, :order => 'position', :select => 'questionable_questions.*, questionable_assignments.position as position', :conditions => { :category => 'comment' }
+    #has_many :answers, :through => :assignments, :order => 'position'
 
-    accepts_nested_attributes_for :questions, allow_destroy: true
+    accepts_nested_attributes_for :assignments, allow_destroy: true
 
-    attr_accessible :title, :note, :category, :position, :questions_attributes, :group, :group_id, :group_type
+    attr_accessible :title, :note, :category, :position, :group, :group_id, :group_type, :assignments_attributes#, :questions_attributes
 
     def question_before_remove(question)
       question.destroy

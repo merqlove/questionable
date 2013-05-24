@@ -51,5 +51,15 @@ module Questionable
           answer.delete
         end
     end
+
+    def replicate
+      replica = dup
+
+      options.each do |option|
+        replica.options << option.dup
+      end
+
+      replica
+    end
   end
 end
