@@ -1,6 +1,6 @@
 module Questionable
   class Answer < ActiveRecord::Base
-    attr_accessible :user_id, :assignment_id, :option_id, :message
+    attr_accessible :user_id, :assignment_id, :option_id, :message, :rating_id
 
     belongs_to :user
     belongs_to :assignment
