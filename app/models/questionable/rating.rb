@@ -11,7 +11,7 @@ module Questionable
       self.options.each do |answer|
         rating += answer.value.to_i * answer.question.coeff
       end
-      return rating
+      return rating.round 4
     end
   end
 end
