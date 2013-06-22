@@ -1,6 +1,6 @@
 module Questionable
   class Rating < ActiveRecord::Base
-    attr_accessible :subject_id, :subject_type, :title, :subject, :current_rating
+    attr_accessible :subject_id, :subject_type, :title, :subject
 
     belongs_to :subject, :polymorphic => true
     has_many :answers, :dependent => :destroy
